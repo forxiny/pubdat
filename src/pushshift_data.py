@@ -4,9 +4,6 @@ Utility functions for processing Reddit data from Pushshift API and monthly arch
 
 from pathlib import Path
 import polars as pl
-from datetime import datetime
-import time
-import sys
 
 
 def get_archive_filepaths(folder):
@@ -57,7 +54,7 @@ def json_to_dataframe(infile):
     filename = Path(infile).stem
 
     df = pl.scan_ndjson(infile) \
-        .filter((pl.col('author') != '[deleted]') & (pl.col('selftext') != None) & (pl.col('selftext') != '') \
+        .filter((pl.col('author') != '[deleted]') & (pl.col('selftext') is not None) & (pl.col('selftext') != '')
                 & (pl.col('subreddit_name_prefixed').str.starts_with('r/'))) \
         .select(columns_to_keep) \
         .collect()
@@ -65,7 +62,7 @@ def json_to_dataframe(infile):
     return df, filename
 
 
-#testing
+# testing
 df, myfile = json_to_dataframe("E:/RS_2022-03.json")
 
 print(df.shape)
