@@ -57,11 +57,16 @@ def json_to_dataframe(infile):
     filename = Path(infile).stem
 
     df = pl.scan_ndjson(infile) \
-        .filter((pl.col('author') != '[deleted]') & (pl.col('selftext') != None) & (pl.col('selftext') != '')) \
+        .filter((pl.col('author') != '[deleted]') & (pl.col('selftext') != None) & (pl.col('selftext') != '') \
+                & (pl.col('subreddit_name_prefixed').str.starts_with('r/'))) \
         .select(columns_to_keep) \
         .collect()
 
     return df, filename
 
 
+#testing
+df, myfile = json_to_dataframe("E:/RS_2022-03.json")
 
+print(df.shape)
+print(myfile)
