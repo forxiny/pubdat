@@ -13,4 +13,8 @@ def get_archive_filepaths(folder):
     :return: generator of file paths
     """
 
-    pass
+    filepaths = Path(folder).glob("*.json")
+
+    return filepaths
+
+
