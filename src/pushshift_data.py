@@ -5,7 +5,7 @@ Utility functions for processing Reddit data from Pushshift API and monthly arch
 from pathlib import Path
 import polars as pl
 
-def get_archive_file_paths(folder):
+def get_archive_filepaths(folder):
     """
     Get file paths for all json files in the specified folder
 
